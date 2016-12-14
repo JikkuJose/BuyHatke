@@ -12,11 +12,11 @@ module BuyHatke
     end
 
     def maximum
-      sorted_by_date.last
+      sorted_by_price.last
     end
 
     def minimum
-      sorted_by_date.first
+      sorted_by_price.first
     end
 
     def average
@@ -37,8 +37,8 @@ module BuyHatke
       end
     end
 
-    def sorted_by_date
-      @sorted_by_date ||= parsed.sort { |l, r| l.last <=> r.last}
+    def sorted_by_price
+      @sorted_by_price ||= parsed.sort { |l, r| l.last <=> r.last}
     end
 
     def data
