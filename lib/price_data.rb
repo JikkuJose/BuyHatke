@@ -11,8 +11,16 @@ module BuyHatke
       }
     end
 
-    def data
-      @data ||= download
+    def maximum
+      sorted_by_date.last
+    end
+
+    def minimum
+      sorted_by_date.first
+    end
+
+    def average
+      parsed.map(&:last).reduce(:+) / parsed.length
     end
 
     def parsed
@@ -23,22 +31,18 @@ module BuyHatke
         .map do |line|
         l = line.split(/\~/)
         [
-          Date.parse(l.first),
+          l.first,
           l.last.to_i
         ]
       end
     end
 
-    def prices_by_date
-      @prices_by_date ||= parsed.sort { |l, r| l.last <=> r.last}
+    def sorted_by_date
+      @sorted_by_date ||= parsed.sort { |l, r| l.last <=> r.last}
     end
 
-    def maximum
-      prices_by_date.last
-    end
-
-    def minimum
-      prices_by_date.first
+    def data
+      @data ||= download
     end
 
     def download
